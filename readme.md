@@ -1,4 +1,4 @@
-# Admin-Decave
+# Admin-Steades
 
 ## Installation
 
@@ -24,7 +24,7 @@
  ```bash
  $ php artisan key:generate
  ```
- 
+
  - Generate autoload files classes.
 
  ```bash
@@ -36,7 +36,7 @@
  ```bash
  $ php artisan migrate:refresh --seed
  ```
- 
+
 - Run application.
 
 ```bash
