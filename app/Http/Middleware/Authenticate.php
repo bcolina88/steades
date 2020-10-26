@@ -30,7 +30,7 @@ class Authenticate
 
         $user = Auth::user()->active;
 
-        if($user === 1){
+        if($user){
              // return $next($request);
 
 

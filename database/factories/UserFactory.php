@@ -20,7 +20,7 @@ $factory->define(App\Model\User::class, function (Faker $faker) {
         'apellido' => $faker->lastname,
         'email' => $faker->unique()->safeEmail,
         'remember_token' => str_random(10),
-        'active' => 1,
+        'active' => true,
         'domicilio' => $faker->address,
         'pago_hora'=>  $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5),
         'titular_cuenta' => $faker->name.' '.$faker->lastname,

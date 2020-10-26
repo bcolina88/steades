@@ -60,11 +60,9 @@ Listado de usuarios | Steades
                     <td>
 
 
-                        @if($user->active ===  1)
+                        @if($user->active)
                           <p class="text-green">Activo</p>
-                        @endif
-
-                        @if($user->active ===  0)
+                        @else
                           <p class="text-red">Despedido</p>
                         @endif
 
