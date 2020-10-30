@@ -30,11 +30,12 @@ class MaestrosTableSeeder extends Seeder
 
                     [ 'titulo' => 'Ver/Usuarios', 'idpadre' => 11, 'ruta' => 'usuarios.show', 'tipo' => 'ver'],
                     [ 'titulo' => 'Ajustes', 'idpadre' => 4, 'ruta' => 'ajustes.store', 'tipo' => 'agregar'],
-                    [ 'titulo' => 'Crear/Usuarios', 'idpadre' => 6, 'ruta' => 'create_product', 'tipo' => 'agregar'],
+                    [ 'titulo' => 'Crear/Usuarios', 'idpadre' => 6, 'ruta' => 'usuarios.store', 'tipo' => 'agregar'],
                     [ 'titulo' => 'Recibo', 'idpadre' => 5, 'ruta' => 'reciboPago', 'tipo' => 'ver'],
                     [ 'titulo' => 'Reset/Password', 'idpadre' => 9, 'ruta' => 'resetPass', 'tipo' => 'agregar'],
                     [ 'titulo' => 'Timesheet', 'idpadre' => 3, 'ruta' => 'actualizar', 'tipo' => 'agregar'],
                     [ 'titulo' => 'Eliminar/Usuarios', 'idpadre' => 6, 'ruta' => 'usuarios.destroy', 'tipo' => 'borrar'],
+                    [ 'titulo' => 'Editar/Usuarios', 'idpadre' => 6, 'ruta' => 'usuarios.update', 'tipo' => 'editar'],
                   
                  
                 ]);

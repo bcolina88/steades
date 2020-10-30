@@ -365,7 +365,7 @@ class PermisosTableSeeder extends Seeder
               'idmaestro' => 11,
               'agregar' => 0,
               'editar' => 0,
-              'ver' => 0,
+              'ver' => 1,
               'inhabilitar' => 0,
               'borrar' => 0],
 
@@ -497,7 +497,7 @@ class PermisosTableSeeder extends Seeder
               'idmaestro' => 11,
               'agregar' => 0,
               'editar' => 0,
-              'ver' => 0,
+              'ver' => 1,
               'inhabilitar' => 0,
               'borrar' => 0],
 

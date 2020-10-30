@@ -43,9 +43,9 @@
 
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Inicial del segundo nombre</label> <span style="color: #E6674A;">*</span>
+                      <label for="exampleInputPassword1">Inicial del segundo nombre</label>
                  
-                     {!! Form::text('segundo_nombre', null, ['class' => 'form-control', 'placeholder' => 'Inicial', 'required']) !!}
+                     {!! Form::text('segundo_nombre', null, ['class' => 'form-control', 'placeholder' => 'Inicial']) !!}
                     </div>
 
                     <div class="col-md-4">
@@ -67,9 +67,9 @@
 
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Depto./Suite</label> <span style="color: #E6674A;">*</span>
+                      <label for="exampleInputPassword1">Depto./Suite</label> 
                  
-                     {!! Form::text('departamento', null, ['class' => 'form-control', 'placeholder' => 'Depto./Suite', 'required']) !!}
+                     {!! Form::text('departamento', null, ['class' => 'form-control', 'placeholder' => 'Depto./Suite']) !!}
                     </div>
 
                     <div class="col-md-4">
@@ -123,7 +123,7 @@
                  
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Contraseña</label>
+                      <label for="exampleInputPassword1">Contraseña</label> 
                         {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) !!}
                     </div>
                   
@@ -229,14 +229,14 @@
 
                     <div class="col-md-4">
                       <br>
-                    <label for="exampleInputPassword1">Tipo de cuenta</label>  <span style="color: #E6674A;">*</span>
+                    <label for="exampleInputPassword1">Tipo de cuenta</label> 
 
                          
-                        <select class="form-control select2" id="tipo_cuenta" name="tipo_cuenta" required style="width: 100%;">
+                        <select class="form-control select2" id="tipo_cuenta" name="tipo_cuenta" style="width: 100%;">
 
    
                           <option value="">Seleccione tipo de cuenta</option>
-                          <option value="corriente">Corriente</option>
+                          <option value="Corriente">Corriente</option>
             
                          
 
@@ -255,7 +255,9 @@
 
    
                           <option value="">Seleccione forma de pago</option>
-                          <option value="deposito directo">Depósito directo</option>
+                          <option value="Deposito directo">Depósito directo</option>
+                          <option value="Cheque">Cheque</option>
+                          <option value="Money orden">Money orden</option>
             
                         
 
@@ -275,26 +277,26 @@
 
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Nombre del titular de la cuenta</label> <span style="color: #E6674A;">*</span>
+                      <label for="exampleInputPassword1">Nombre del titular de la cuenta</label>
                   
-                       {!! Form::text('titular_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Nombre del titular de la cuenta', 'required']) !!}
+                       {!! Form::text('titular_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Nombre del titular de la cuenta']) !!}
                     </div>
 
 
 
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Número de cuenta</label> <span style="color: #E6674A;">*</span>
+                      <label for="exampleInputPassword1">Número de cuenta</label>
                   
-                       {!! Form::text('numero_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Número de cuenta', 'required']) !!}
+                       {!! Form::text('numero_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Número de cuenta']) !!}
                     </div>
 
 
                     <div class="col-md-4">
                       <br>
-                      <label for="exampleInputPassword1">Confirmar Nº. de cuenta</label> <span style="color: #E6674A;">*</span>
+                      <label for="exampleInputPassword1">Confirmar Nº. de cuenta</label> 
                   
-                       {!! Form::text('confi_numero_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Confirmar Nº. de cuenta', 'required']) !!}
+                       {!! Form::text('confi_numero_cuenta', null, ['class' => 'form-control', 'placeholder' => 'Confirmar Nº. de cuenta']) !!}
                     </div>
 
 
@@ -311,7 +313,20 @@
 
                       <div class="form-group">
                         {!! Form::label('cargo', 'Puesto') !!} <span style="color: #E6674A;">*</span>
-                        {!! Form::text('cargo', null, ['class' => 'form-control', 'placeholder' => 'Puesto']) !!}
+
+                      
+                        <select class="form-control select2" id="cargo" name="cargo" required style="width: 100%;">
+
+   
+                          <option value="">Seleccione puesto</option>
+                          <option value="ASSISTANT">Assistant</option>
+                          <option value="PAINTER">Painter</option>
+                          <option value="PAINTER PRO">Painter pro</option>
+            
+                        
+
+                        </select>
+
                       </div>     
                     </div>  
 
@@ -325,7 +340,8 @@
 
    
                           <option value="">Seleccione tipo de pago</option>
-                          <option value="por hora">Por hora</option>
+                          <option value="Por hora">Por hora</option>
+                          <option value="Por project">Por project</option>
             
                         
 
@@ -402,12 +418,12 @@
 
                        <label style="color: #E6674A;">*</label>
 
-                      <input type="file" name="images" id="images" multiple required>
+                      <input type="file" name="images[]" id="images[]" multiple required>
                        
 
                        @else
 
-                      <input type="file" name="images" id="images" multiple >
+                      <input type="file" name="images[]" id="images[]" multiple >
 
                        @endif
                      
@@ -421,11 +437,13 @@
                   </div><!-- /.box-body -->
                   </div><!-- /.box-body -->
 
+                  <input type="hidden" name="tipo" id="tipo" value="{{$tipo}}">
+
                 
                   <div class="box-footer">
 
 
-                   <button type="button" id="ingresar" class="btn btn-primary">Guardar</button>
+                   <button type="submit" class="btn btn-primary">Guardar</button>
                   </div>
                   </div>
               </form>
@@ -437,7 +455,7 @@
 
 <script>
 
-   @if (Auth::user()->idrole === 3)
+   @if (Auth::user()->idrole == 3)
 
       $("#idrole").val(4).trigger('change');
       $("#idrole").prop('disabled',true);
@@ -466,7 +484,7 @@
 
   $('.select2').select2();
 
-   $('#datepicker_inicio').val(moment(new Date()).format("YYYY-MM-DD"))
+   //$('#datepicker_inicio').val(moment(new Date()).format("YYYY-MM-DD"))
     $('#datepicker_inicio').datetimepicker({
       format: 'YYYY-MM-DD'
     });
@@ -488,6 +506,7 @@
       $("#forma_pago").val("{{$user2->forma_pago}}").trigger('change');
       $("#tipo_pago").val("{{$user2->tipo_pago}}").trigger('change');
       $("#tipo_pago").val("{{$user2->tipo_pago}}").trigger('change');
+      $("#cargo").val("{{$user2->cargo}}").trigger('change');
       $('[name="confi_numero_cuenta"]').val("{{$user2->numero_cuenta}}").trigger('change');
 
      // '[name="confi_numero_cuenta"]'
@@ -561,7 +580,7 @@ $('#ingresar').click(function(){
 
 
 
-         if (( $('[name="nombre"]').val() ==="") || ($('[name="segundo_nombre"]').val() ==="")|| ($('[name="apellido"]').val() ==="")|| ($('[name="domicilio"]').val() ==="")|| ($('[name="departamento"]').val() ==="")|| ($('[name="ciudad"]').val() ==="")|| ($('[name="estado"]').val() ==="")|| ($('[name="codigo_postal"]').val() ==="")|| ($('[name="seguro_social"]').val() ==="")|| ($('[name="idrole"]').val() ==="")|| ($('[name="correo"]').val() ==="")|| ($('[name="tipo_empleo"]').val() ==="")|| ($('[name="tipo_cuenta"]').val() ==="")|| ($('[name="forma_pago"]').val() ==="")|| ($('[name="titular_cuenta"]').val() ==="")|| ($('[name="segundo_nombre"]').val() ==="")|| ($('[name="numero_cuenta"]').val() ==="")|| ($('[name="confi_numero_cuenta"]').val() ==="")|| ($('[name="tipo_pago"]').val() ==="")|| ($('[name="pago_hora"]').val() ==="")|| ($('[name="contacto_emergencia"]').val() ==="")|| ($('[name="fecha_contrato"]').val() ==="")|| ($('[name="cargo"]').val() ==="")) {
+         if (( $('[name="nombre"]').val() ==="") ||  ($('[name="apellido"]').val() ==="")|| ($('[name="domicilio"]').val() ==="")||  ($('[name="ciudad"]').val() ==="")|| ($('[name="estado"]').val() ==="")|| ($('[name="codigo_postal"]').val() ==="")|| ($('[name="seguro_social"]').val() ==="")|| ($('[name="idrole"]').val() ==="")|| ($('[name="correo"]').val() ==="")|| ($('[name="tipo_empleo"]').val() ==="")|| ($('[name="tipo_cuenta"]').val() ==="")|| ($('[name="forma_pago"]').val() ==="")|| ($('[name="titular_cuenta"]').val() ==="")|| ($('[name="tipo_pago"]').val() ==="")|| ($('[name="pago_hora"]').val() ==="")|| ($('[name="contacto_emergencia"]').val() ==="")|| ($('[name="fecha_contrato"]').val() ==="")|| ($('[name="cargo"]').val() ==="")) {
     
 
 

@@ -42,7 +42,7 @@ class Authenticate
 
             if($maestro->tipo ==="agregar"){
             
-                if ($permissions->agregar === 1) {
+                if ($permissions->agregar == 1) {
                    return $next($request);
                 }else{
                    return redirect()->guest(route('home'));

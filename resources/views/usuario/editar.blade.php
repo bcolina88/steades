@@ -10,8 +10,9 @@ Editar Usuario | Steades
         <small></small>
     </section>
 
- {!! Form::model($user2, ['route'=>['usuarios.update', $user2->id],'id'=>'formCreate']) !!}
 
+
+{!! Form::model($user2, ['route'=>['usuarios.update', $user2->id], 'method'=>'PUT','enctype'=>'multipart/form-data','files'=>'true','accept-charset'=>'UTF-8']) !!}
 
 
 @include('usuario.forms.user')

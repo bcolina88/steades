@@ -137,7 +137,7 @@ Historial e informes | Steades
   });
   @endif
 
-    @if (Auth::user()->idrole === 4)
+    @if (Auth::user()->idrole == 4)
 
         $('#empleado').val("{{Auth::user()->id}}").trigger('change');;
         $("#empleado").prop('disabled',true);

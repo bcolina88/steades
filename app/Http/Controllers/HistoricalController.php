@@ -89,7 +89,7 @@ class HistoricalController extends Controller
 
         $pdf = PDF::loadView('pdf.recibo', compact('historical','ssn','ytd'));
 
-        return $pdf->download('reciboPago.pdf');
+        return $pdf->download('PayStatement.pdf');
     }
 
 

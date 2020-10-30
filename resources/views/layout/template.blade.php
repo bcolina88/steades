@@ -241,6 +241,13 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ route('home') }}"><i class="fa fa-desktop"></i> <span>Inicio</span></a></li>
         
+        @if ((Auth::user()->idrole == 4)||(Auth::user()->idrole == 3))
+
+        <li ><a href="{{route("usuarios.show", ["usuario" => Auth::user()->id])}}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+
+
+        @endif
+
         @if (Auth::user()->idrole != 4)
 
         @if (Auth::user()->idrole != 3)

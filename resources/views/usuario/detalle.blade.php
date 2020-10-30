@@ -158,13 +158,24 @@ Detalle de Usuario | Steades
         </div>
 
 
-      @if ($users)
+     
+
+       
         <div class="box-body">
+
+            @if ((Auth::user()->idrole != 3)&&(Auth::user()->idrole != 4))
+
+
             <a href="{{route('usuarios.index')}}" class="btn btn-default  btn-flat pull-left"><b>Regresar listado de usuarios</b></a>
             <a href="{{route('equipo')}}" class="btn btn-default  btn-flat pull-right"><b>Regresar equipo de nómina</b></a>
-        </div>
+            
+            @endif
 
-      @endif
+        </div>
+       
+
+
+  
 
 
 </section>

@@ -93,52 +93,57 @@ class UsersController extends Controller
 
         ]);
 
-        //$user = new User($request->all());
-       // $user->password = bcrypt($request->password);
-
-
 
         $images =  '';
 
 
 
-        if ($request->file('images')) {
-
-
-            $photos = $request->file('images');
-
-                if (!is_array($photos)) {
-                    $photos = [$photos];
-                }
-
-                if (!is_dir($this->photos_path)) {
-                    mkdir($this->photos_path, 0777);
-                }
-
-
-                for ($i = 0; $i < count($photos); $i++) {
-
-                    $photo = $photos[$i];
-                    $name = sha1(date('YmdHis') . str_random(30));
-                    $save_name = $name . '.' . $photo->getClientOriginalExtension();
-                    $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
-
-                    $photo->move($this->photos_path, $save_name);
-                        
-                           
-                    $src = url("/{$this->photos_path}/{$save_name}");
-
-
-                    $images = $src.','.$images;
-
-
-                }
-
+        if ($request->declaracion ==="on") {
+          $declaracion = true;
+        }else{
+          $declaracion = false;
         }
 
 
 
-        $user = User::firstOrCreate([
+        if($request->tipo === "guardar"){
+
+
+
+            if ($request->file('images')) {
+
+
+                            $photos = $request->file('images');
+
+                            if (!is_array($photos)) {
+                                $photos = [$photos];
+                            }
+
+                            if (!is_dir($this->photos_path)) {
+                                mkdir($this->photos_path, 0777);
+                            }
+
+
+                            for ($i = 0; $i < count($photos); $i++) {
+
+                                $photo = $photos[$i];
+                                $name = sha1(date('YmdHis') . str_random(30));
+                                $save_name = $name . '.' . $photo->getClientOriginalExtension();
+                                $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+                                $photo->move($this->photos_path, $save_name);
+                            
+                               
+                                $src = url("/{$this->photos_path}/{$save_name}");
+
+                                $images = $src.','.$images;
+
+                            }
+
+            }
+
+
+            $user = User::firstOrCreate([
              'nombre'          => $request->nombre,
              'segundo_nombre'  => $request->segundo_nombre,
              'apellido'        => $request->apellido,
@@ -166,16 +171,171 @@ class UsersController extends Controller
              'fecha_contrato'  => $request->fecha_contrato,
              'fecha_despido'   => $request->fecha_despido,
              'images'          => $images,
-             'declaracion'     => $request->declaracion,
+             'declaracion'     => $declaracion,
 
-          ]);
+            ]);
 
 
 
-        $user->save();
-        session::flash('message','El usuario Fue Creado Correctamente');
+            $user->save();
 
-        return redirect(route('usuarios.index')); 
+            session::flash('message','El usuario Fue Creado Correctamente');
+            return redirect(route('usuarios.index')); 
+
+        }  
+
+
+        if($request->tipo === "editar"){ 
+
+
+            if ($request->file('images')) {
+
+
+                        $photos = $request->file('images');
+
+                        if (!is_array($photos)) {
+                            $photos = [$photos];
+                        }
+
+                        if (!is_dir($this->photos_path)) {
+                            mkdir($this->photos_path, 0777);
+                        }
+
+
+                        for ($i = 0; $i < count($photos); $i++) {
+
+                            $photo = $photos[$i];
+                            $name = sha1(date('YmdHis') . str_random(30));
+                            $save_name = $name . '.' . $photo->getClientOriginalExtension();
+                            $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+                            $photo->move($this->photos_path, $save_name);
+                            
+                               
+                            $src = url("/{$this->photos_path}/{$save_name}");
+
+                            $images = $src.','.$images;
+
+                        }
+
+
+
+
+
+                        if($request->password != null){
+         
+                        } else {
+                         unset($request->password);
+                        }
+
+                        $user = User::with(['role'])->find($request->id);
+
+
+
+                        $user->fill([
+                         'nombre'          => $request->nombre,
+                         'segundo_nombre'  => $request->segundo_nombre,
+                         'apellido'        => $request->apellido,
+                         'email'           => $request->email, 
+                         'idrole'          => $request->idrole,
+                         'password'        => bcrypt($request->password),
+                         'cargo'           => $request->cargo,
+                         'domicilio'       => $request->domicilio,
+                         'tipo_empleo'     => $request->tipo_empleo,
+                         'departamento'    => $request->departamento,
+                         'ciudad'          => $request->ciudad,
+                         'estado'          => $request->estado,
+                         'codigo_postal'   => $request->codigo_postal,
+                         'fecha_nacimiento'=> $request->fecha_nacimiento,
+                         'seguro_social'   => $request->seguro_social,
+                         'tipo_cuenta'     => $request->tipo_cuenta,
+                         'titular_cuenta'  => $request->titular_cuenta,
+                         'ruta_transito'   => $request->ruta_transito,
+                         'numero_cuenta'   => $request->numero_cuenta,
+                         'forma_pago'      => $request->forma_pago,
+                         'tipo_pago'       => $request->tipo_pago,
+                         'pago_hora'       => $request->pago_hora,
+                         'contacto_emergencia' => $request->contacto_emergencia,
+                         'fecha_contrato'  => $request->fecha_contrato,
+                         'fecha_despido'   => $request->fecha_despido,
+                         'images'          => $images,
+                         'declaracion'     => $declaracion,
+                         'active'          => $request->estado,
+
+                        ]);
+
+
+
+                        $user->save();
+
+                        session::flash('message','El usuario Fue Actualizado Correctamente');
+                        return redirect(route('usuarios.index')); 
+
+
+
+            }else{
+
+
+
+                        if($request->password != null){
+         
+                        } else {
+                         unset($request->password);
+                        }
+
+                        $user = User::with(['role'])->find($request->id);
+
+
+
+                        $user->fill([
+                         'nombre'          => $request->nombre,
+                         'segundo_nombre'  => $request->segundo_nombre,
+                         'apellido'        => $request->apellido,
+                         'email'           => $request->email, 
+                         'idrole'          => $request->idrole,
+                         'password'        => bcrypt($request->password),
+                         'cargo'           => $request->cargo,
+                         'domicilio'       => $request->domicilio,
+                         'tipo_empleo'     => $request->tipo_empleo,
+                         'departamento'    => $request->departamento,
+                         'ciudad'          => $request->ciudad,
+                         'estado'          => $request->estado,
+                         'codigo_postal'   => $request->codigo_postal,
+                         'fecha_nacimiento'=> $request->fecha_nacimiento,
+                         'seguro_social'   => $request->seguro_social,
+                         'tipo_cuenta'     => $request->tipo_cuenta,
+                         'titular_cuenta'  => $request->titular_cuenta,
+                         'ruta_transito'   => $request->ruta_transito,
+                         'numero_cuenta'   => $request->numero_cuenta,
+                         'forma_pago'      => $request->forma_pago,
+                         'tipo_pago'       => $request->tipo_pago,
+                         'pago_hora'       => $request->pago_hora,
+                         'contacto_emergencia' => $request->contacto_emergencia,
+                         'fecha_contrato'  => $request->fecha_contrato,
+                         'fecha_despido'   => $request->fecha_despido,
+                         'declaracion'     => $declaracion,
+                         'active'          => $request->estado,
+                         
+
+                        ]);
+
+
+
+                        $user->save();
+
+                        session::flash('message','El usuario Fue Actualizado Correctamente');
+                        return redirect(route('usuarios.index')); 
+
+
+
+            }
+
+
+
+
+        } 
+
+   
     }
 
     /**
@@ -243,74 +403,334 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         
-
-        $data = request()->validate([
+        $data= request()->validate([
             'nombre' => 'min:4|max:255|required',
             'apellido' => 'min:4|max:255|required',
             'email' => 'min:4|max:255|required|email|unique:users,email,'.$id,
-            'idrole' => 'integer|required',
-            'password' => '',
-            'cargo' => ''
+            'idrole' => 'required|integer:1,2,3,|not_in:0',
+            'password' => ''
 
         ]);
 
 
-        if($data['password'] != null){
-            $data['password'] = bcrypt($data['password']);
-            } else {
+        $images =  '';
 
-                unset($data['password']);
+
+
+        if ($request->declaracion ==="on") {
+          $declaracion = true;
+        }else{
+          $declaracion = false;
+        }
+
+
+
+        if($request->tipo === "guardar"){
+
+
+
+            if ($request->file('images')) {
+
+
+                            $photos = $request->file('images');
+
+                            if (!is_array($photos)) {
+                                $photos = [$photos];
+                            }
+
+                            if (!is_dir($this->photos_path)) {
+                                mkdir($this->photos_path, 0777);
+                            }
+
+
+                            for ($i = 0; $i < count($photos); $i++) {
+
+                                $photo = $photos[$i];
+                                $name = sha1(date('YmdHis') . str_random(30));
+                                $save_name = $name . '.' . $photo->getClientOriginalExtension();
+                                $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+                                $photo->move($this->photos_path, $save_name);
+                            
+                               
+                                $src = url("/{$this->photos_path}/{$save_name}");
+
+                                $images = $src.','.$images;
+
+                            }
 
             }
 
-            $user = User::with(['role'])->find($id);
 
-
-
-            $user->fill([
-                 'nombre'          => $request->nombre,
-                 'segundo_nombre'  => $request->segundo_nombre,
-                 'apellido'        => $request->apellido,
-                 'email'           => $request->email, 
-                 'idrole'          => $request->idrole,
-                 'password'        => bcrypt($request->password),
-                 'cargo'           => $request->cargo,
-                 'active'          => 1,
-
-
-                 'domicilio'       => $request->domicilio,
-                 'tipo_empleo'     => $request->tipo_empleo,
-                 'departamento'    => $request->departamento,
-                 'ciudad'          => $request->ciudad,
-                 'estado'          => $request->estado,
-                 'codigo_postal'   => $request->codigo_postal,
-                 'fecha_nacimiento'=> $request->fecha_nacimiento,
-                 'seguro_social'   => $request->seguro_social,
-                 'tipo_cuenta'     => $request->tipo_cuenta,
-                 'titular_cuenta'  => $request->titular_cuenta,
-                 'ruta_transito'   => $request->ruta_transito,
-                 'numero_cuenta'   => $request->numero_cuenta,
-
-                 'forma_pago'      => $request->forma_pago,
-                 'tipo_pago'       => $request->tipo_pago,
-                 'pago_hora'       => $request->pago_hora,
-                 'contacto_emergencia' => $request->contacto_emergencia,
-                 'fecha_contrato'  => $request->fecha_contrato,
-                 'fecha_despido'   => $request->fecha_despido,
-                 'images'          => '[]',
-                 'declaracion'     => $request->declaracion,
+            $user = User::firstOrCreate([
+             'nombre'          => $request->nombre,
+             'segundo_nombre'  => $request->segundo_nombre,
+             'apellido'        => $request->apellido,
+             'email'           => $request->email, 
+             'idrole'          => $request->idrole,
+             'password'        => bcrypt($request->password),
+             'cargo'           => $request->cargo,
+             'active'          => 1,
+             'domicilio'       => $request->domicilio,
+             'tipo_empleo'     => $request->tipo_empleo,
+             'departamento'    => $request->departamento,
+             'ciudad'          => $request->ciudad,
+             'estado'          => $request->estado,
+             'codigo_postal'   => $request->codigo_postal,
+             'fecha_nacimiento'=> $request->fecha_nacimiento,
+             'seguro_social'   => $request->seguro_social,
+             'tipo_cuenta'     => $request->tipo_cuenta,
+             'titular_cuenta'  => $request->titular_cuenta,
+             'ruta_transito'   => $request->ruta_transito,
+             'numero_cuenta'   => $request->numero_cuenta,
+             'forma_pago'      => $request->forma_pago,
+             'tipo_pago'       => $request->tipo_pago,
+             'pago_hora'       => $request->pago_hora,
+             'contacto_emergencia' => $request->contacto_emergencia,
+             'fecha_contrato'  => $request->fecha_contrato,
+             'fecha_despido'   => $request->fecha_despido,
+             'images'          => $images,
+             'declaracion'     => $declaracion,
 
             ]);
 
-           $user->save();
-           // $user->update($data);
 
 
-        session::flash('message','El usuario Fue actualizado Correctamente');
-        $users = User::with(['role'])->find($id);
-        return redirect(route('usuarios.index')); 
+            $user->save();
 
-   }
+            session::flash('message','El usuario Fue Creado Correctamente');
+            return redirect(route('usuarios.index')); 
+
+        }  
+
+
+        if($request->tipo === "editar"){ 
+
+
+            if ($request->file('images')) {
+
+
+                        $photos = $request->file('images');
+
+                        if (!is_array($photos)) {
+                            $photos = [$photos];
+                        }
+
+                        if (!is_dir($this->photos_path)) {
+                            mkdir($this->photos_path, 0777);
+                        }
+
+
+                        for ($i = 0; $i < count($photos); $i++) {
+
+                            $photo = $photos[$i];
+                            $name = sha1(date('YmdHis') . str_random(30));
+                            $save_name = $name . '.' . $photo->getClientOriginalExtension();
+                            $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+
+                            $photo->move($this->photos_path, $save_name);
+                            
+                               
+                            $src = url("/{$this->photos_path}/{$save_name}");
+
+                            $images = $src.','.$images;
+
+                        }
+
+
+
+
+                        if($request->password != null){
+                            $pass = bcrypt($request->password);
+
+
+                            $user = User::with(['role'])->find($id);
+
+
+                            $user->fill([
+                             'nombre'          => $request->nombre,
+                             'segundo_nombre'  => $request->segundo_nombre,
+                             'apellido'        => $request->apellido,
+                             'idrole'          => $request->idrole,
+                             'password'        => $pass,
+                             'cargo'           => $request->cargo,
+                             'domicilio'       => $request->domicilio,
+                             'tipo_empleo'     => $request->tipo_empleo,
+                             'departamento'    => $request->departamento,
+                             'ciudad'          => $request->ciudad,
+                             'estado'          => $request->estado,
+                             'codigo_postal'   => $request->codigo_postal,
+                             'fecha_nacimiento'=> $request->fecha_nacimiento,
+                             'seguro_social'   => $request->seguro_social,
+                             'tipo_cuenta'     => $request->tipo_cuenta,
+                             'titular_cuenta'  => $request->titular_cuenta,
+                             'ruta_transito'   => $request->ruta_transito,
+                             'numero_cuenta'   => $request->numero_cuenta,
+                             'forma_pago'      => $request->forma_pago,
+                             'tipo_pago'       => $request->tipo_pago,
+                             'pago_hora'       => $request->pago_hora,
+                             'contacto_emergencia' => $request->contacto_emergencia,
+                             'fecha_contrato'  => $request->fecha_contrato,
+                             'fecha_despido'   => $request->fecha_despido,
+                             'images'          => $images,
+                             'declaracion'     => $declaracion,
+                             'active'          => $request->estado,
+
+                            ]);
+
+                            $user->save();
+
+                            session::flash('message','El usuario Fue Actualizado Correctamente');
+                            return redirect(route('usuarios.index')); 
+
+
+
+         
+                        } else {
+
+
+                            $user = User::with(['role'])->find($id);
+
+
+                            $user->fill([
+                             'nombre'          => $request->nombre,
+                             'segundo_nombre'  => $request->segundo_nombre,
+                             'apellido'        => $request->apellido,
+                             'idrole'          => $request->idrole,
+                             'cargo'           => $request->cargo,
+                             'domicilio'       => $request->domicilio,
+                             'tipo_empleo'     => $request->tipo_empleo,
+                             'departamento'    => $request->departamento,
+                             'ciudad'          => $request->ciudad,
+                             'estado'          => $request->estado,
+                             'codigo_postal'   => $request->codigo_postal,
+                             'fecha_nacimiento'=> $request->fecha_nacimiento,
+                             'seguro_social'   => $request->seguro_social,
+                             'tipo_cuenta'     => $request->tipo_cuenta,
+                             'titular_cuenta'  => $request->titular_cuenta,
+                             'ruta_transito'   => $request->ruta_transito,
+                             'numero_cuenta'   => $request->numero_cuenta,
+                             'forma_pago'      => $request->forma_pago,
+                             'tipo_pago'       => $request->tipo_pago,
+                             'pago_hora'       => $request->pago_hora,
+                             'contacto_emergencia' => $request->contacto_emergencia,
+                             'fecha_contrato'  => $request->fecha_contrato,
+                             'fecha_despido'   => $request->fecha_despido,
+                             'images'          => $images,
+                             'declaracion'     => $declaracion,
+                             'active'          => $request->estado,
+
+                            ]);
+
+                            $user->save();
+
+                            session::flash('message','El usuario Fue Actualizado Correctamente');
+                            return redirect(route('usuarios.index')); 
+                           
+                        }
+
+
+
+                        
+
+
+            }else{
+
+                        
+                        
+                        if($request->password  != null){
+
+                            $pass = bcrypt($request->password);
+                            $user = User::with(['role'])->find($id);
+
+                            $user->fill([
+                             'nombre'          => $request->nombre,
+                             'segundo_nombre'  => $request->segundo_nombre,
+                             'apellido'        => $request->apellido,
+                             'idrole'          => $request->idrole,
+                             'password'        => $pass,
+                             'cargo'           => $request->cargo,
+                             'domicilio'       => $request->domicilio,
+                             'tipo_empleo'     => $request->tipo_empleo,
+                             'departamento'    => $request->departamento,
+                             'ciudad'          => $request->ciudad,
+                             'estado'          => $request->estado,
+                             'codigo_postal'   => $request->codigo_postal,
+                             'fecha_nacimiento'=> $request->fecha_nacimiento,
+                             'seguro_social'   => $request->seguro_social,
+                             'tipo_cuenta'     => $request->tipo_cuenta,
+                             'titular_cuenta'  => $request->titular_cuenta,
+                             'ruta_transito'   => $request->ruta_transito,
+                             'numero_cuenta'   => $request->numero_cuenta,
+                             'forma_pago'      => $request->forma_pago,
+                             'tipo_pago'       => $request->tipo_pago,
+                             'pago_hora'       => $request->pago_hora,
+                             'contacto_emergencia' => $request->contacto_emergencia,
+                             'fecha_contrato'  => $request->fecha_contrato,
+                             'fecha_despido'   => $request->fecha_despido,
+                             'declaracion'     => $declaracion,
+                             'active'          => $request->estado,
+                             
+
+                            ]);
+
+
+                            $user->save();
+
+                            session::flash('message','El usuario Fue Actualizado Correctamente');
+                            return redirect(route('usuarios.index')); 
+
+
+         
+                        } else {
+
+                            $user = User::with(['role'])->find($id);
+
+                            $user->fill([
+                             'nombre'          => $request->nombre,
+                             'segundo_nombre'  => $request->segundo_nombre,
+                             'apellido'        => $request->apellido,
+                             'idrole'          => $request->idrole,
+                             'cargo'           => $request->cargo,
+                             'domicilio'       => $request->domicilio,
+                             'tipo_empleo'     => $request->tipo_empleo,
+                             'departamento'    => $request->departamento,
+                             'ciudad'          => $request->ciudad,
+                             'estado'          => $request->estado,
+                             'codigo_postal'   => $request->codigo_postal,
+                             'fecha_nacimiento'=> $request->fecha_nacimiento,
+                             'seguro_social'   => $request->seguro_social,
+                             'tipo_cuenta'     => $request->tipo_cuenta,
+                             'titular_cuenta'  => $request->titular_cuenta,
+                             'ruta_transito'   => $request->ruta_transito,
+                             'numero_cuenta'   => $request->numero_cuenta,
+                             'forma_pago'      => $request->forma_pago,
+                             'tipo_pago'       => $request->tipo_pago,
+                             'pago_hora'       => $request->pago_hora,
+                             'contacto_emergencia' => $request->contacto_emergencia,
+                             'fecha_contrato'  => $request->fecha_contrato,
+                             'fecha_despido'   => $request->fecha_despido,
+                             'declaracion'     => $declaracion,
+                             'active'          => $request->estado,
+                             
+
+                            ]);
+
+
+                            $user->save();
+
+                            session::flash('message','El usuario Fue Actualizado Correctamente');
+                            return redirect(route('usuarios.index')); 
+                           
+                        }
+
+
+            }
+
+
+        } 
+        
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -16,20 +16,20 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('segundo_nombre');
+            $table->string('segundo_nombre')->nullable();
             $table->string('apellido');
             $table->string('domicilio');
             $table->string('tipo_empleo');
-            $table->string('departamento');
+            $table->string('departamento')->nullable();
             $table->string('ciudad');
             $table->string('estado');
             $table->string('codigo_postal');
             $table->string('fecha_nacimiento')->nullable();
             $table->string('seguro_social');
-            $table->string('tipo_cuenta');
-            $table->string('titular_cuenta');
+            $table->string('tipo_cuenta')->nullable();
+            $table->string('titular_cuenta')->nullable();
             $table->string('ruta_transito')->nullable();
-            $table->string('numero_cuenta');
+            $table->string('numero_cuenta')->nullable();
             $table->string('forma_pago');
             $table->string('cargo');
             $table->string('tipo_pago');

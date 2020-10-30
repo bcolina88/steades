@@ -13,7 +13,8 @@ Crear usuario | Steades
 
 
 
-{!! Form::open([ 'id'=>'formCreate']) !!}
+ {!! Form::open(['route'=>'usuarios.store','enctype'=>'multipart/form-data','method'=>'POST','files'=>'true','accept-charset'=>'UTF-8']) !!}
+
 
 @include('usuario.forms.user') 
 
