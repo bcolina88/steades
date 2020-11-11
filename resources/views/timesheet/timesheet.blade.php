@@ -35,6 +35,35 @@ Timesheet | Steades
             </section>
 
 
+            
+            {!!Form::open(['route'=>'busqueda', 'method'=>'POST'])!!}
+            <div class="row">
+                        
+
+                      <div class="col-lg-3">
+                        
+                        <label for="exampleInputPassword1">Elige una fecha</label> 
+                   
+                        <input type="text" class="form-control" name="fecha" id="datepicker_inicio">
+                          
+                      </div>
+
+                        
+                       
+                        <div class="col-lg-1">
+                            <div class="form-group">
+                                <br>
+                                <div class="input-group">
+                                    <button id="search" class="btn btn-primary pull-right" style="margin-left:10px;">
+                                        BUSCAR
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            {!!Form::close()!!}
+
+
 
             <!-- /.box-header -->
             {!!Form::open(['route'=>'actualizar', 'method'=>'POST'])!!}
@@ -132,6 +161,15 @@ Timesheet | Steades
 
 <script type="text/javascript">
   $('.select2').select2();
+
+
+ // $('#datepicker_inicio').val(moment(new Date()).format("YYYY-MM-DD"))
+  $('#datepicker_inicio').datetimepicker({
+      format: 'YYYY-MM-DD'
+  });
+
+
+
 
   @if (session('message'))
   $(".callout").fadeTo(5000, 500).slideUp(500, function(){

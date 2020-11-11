@@ -26,6 +26,7 @@ $factory->define(App\Model\User::class, function (Faker $faker) {
         'titular_cuenta' => $faker->name.' '.$faker->lastname,
         'ciudad' => $faker->cityPrefix,
         'contacto_emergencia' => $faker->tollFreePhoneNumber,
+        'telefono' => $faker->tollFreePhoneNumber,
         'seguro_social' => $faker->ssn,
     ];
 });

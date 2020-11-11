@@ -22,7 +22,6 @@ class UserTableSeeder extends Seeder
        'active'  => true,
        'email' => 'alexisr@steades.com',
        'password' => bcrypt('secret'),
-
        'domicilio' => '',
        'tipo_empleo' => '',
        'departamento' => '',
@@ -35,7 +34,7 @@ class UserTableSeeder extends Seeder
        'titular_cuenta'=> '',
        'ruta_transito'=> '',
        'numero_cuenta'=> '',
-
+       'telefono'=> '',
        'forma_pago'=> '',
        'tipo_pago'=> '',
        'pago_hora'=> 0,
@@ -56,29 +55,21 @@ class UserTableSeeder extends Seeder
             return App\Model\Role::inRandomOrder()->first()->id;
           },
          'password' => bcrypt('secret'),
-
-
          'tipo_empleo' => '',
          'departamento' => '',
-
          'estado'=> '',
          'codigo_postal'=> '',
          'fecha_nacimiento'=> '',
-
          'tipo_cuenta'=> '',
-
          'ruta_transito'=> '',
          'numero_cuenta'=> '',
          'cargo' => '',
          'forma_pago'=> '',
          'tipo_pago'=> '',
-
-
          'fecha_contrato'=> '',
          'fecha_despido'=> '',
          'images'=> '',
          'declaracion'=> false,
-
 
         ]);
 

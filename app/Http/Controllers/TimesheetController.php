@@ -302,6 +302,106 @@ class TimesheetController extends Controller
     }
 
 
+    public function busqueda(Request $request)
+    {
+
+        
+
+        $date = $request->get('fecha');
+
+
+        date_default_timezone_set("America/Chicago");
+
+       // $date = date("Y-m-d");
+        $dia = date("l",strtotime("$date"));
+        $empleados =[];
+        $days =[];
+        $hay_pago = false;
+        $empleados = User::where('active','=',1)->where('idrole','=',4)->orderBy('id','ASC')->get();
+        $total_empleados = count($empleados);
+
+
+        //Fechas
+
+            if($dia ==="Monday"){
+              $monday =date("d F Y", strtotime("$date monday"));
+              $rango_inicio = date("Y/m/d", strtotime("$date monday"));
+              $inicio = date("Y-m-d", strtotime("$date monday"));
+              $day1=date("d", strtotime("$date monday"));
+
+
+
+            }else{
+              $monday =date("d F Y", strtotime("$date previous monday"));
+              $rango_inicio = date("Y/m/d", strtotime("$date previous monday"));
+              $inicio = date("Y-m-d", strtotime("$date previous monday"));
+              $day1=date("d", strtotime("$date previous monday"));
+
+            }
+
+
+            $sunday = date("d F Y", strtotime("$monday +6 day"));
+            $fin = date("Y-m-d", strtotime("$monday +6 day"));
+
+            array_push($days,$day1);
+            for ($i=1; $i < 7 ; $i++) {
+                $day1=date("d", strtotime("$monday +$i day"));
+                array_push($days,$day1);
+            }
+
+        //Fin Fechas
+
+        //Rango
+
+            $rango_fin = date("Y/m/d", strtotime("$monday +6 day"));
+            $rango_total = $rango_inicio.'-'.$rango_fin;
+
+
+        //Fin rango
+
+
+
+        for ($i=0; $i < $total_empleados; $i++) {
+
+
+          $pagos = Timesheet::where("timesheets.idempleado", $empleados[$i]->id)
+                      ->where('timesheets.rango', $rango_total)
+                      ->select('timesheets.*')
+                      ->get();
+
+
+                      if(count($pagos) > 0){
+                         $empleados[$i]['pagos']=$pagos;
+
+
+                      }else{
+
+                        $pagos = array('lunes' => '','martes' => '','miercoles' => '','jueves' => '','viernes' => '','sabado' => '','domingo' => '','total' => '');
+                        $empleados[$i]['pagos']=[$pagos];
+
+
+                      }
+
+
+        }
+
+     // return  $dia;
+
+
+        return view('timesheet.timesheet', compact('empleados','total_empleados','monday','sunday','inicio','fin','days','rango_total','hay_pago'));
+
+
+
+
+        
+     //   return  $dia;
+
+
+
+
+    }
+
+
 
 
 

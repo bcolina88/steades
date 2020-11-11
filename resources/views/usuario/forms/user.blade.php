@@ -221,6 +221,14 @@
                     </div>  
 
 
+                    <div class="col-md-4">
+                        <label for="exampleInputPassword1">Telefono</label> 
+                        {!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => '(000)-000-0000', 'data-inputmask'=>'"mask": "(999) 999-9999"','data-mask']) !!}
+
+                  
+                    </div> 
+
+
                     <div class="col-md-12">
                      <h3 >Detalles de depósitos directos <hr>
                     </div>

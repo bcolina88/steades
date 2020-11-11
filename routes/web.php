@@ -22,6 +22,7 @@ Route::post('/resetPassword', 'HomeController@resetPass')->name('resetPass');
 Route::get('/equipo', 'NominaController@index')->name('equipo');
 Route::get('/historial', 'HistoricalController@index')->name('historial');
 Route::get('/timesheet', 'TimesheetController@index')->name('timesheet');
+Route::post('/timesheet', 'TimesheetController@busqueda')->name('busqueda');
 Route::post('/timesheet/actualizar', 'TimesheetController@actualizar')->name('actualizar');
 
 Route::get('descargar/{id}', 'HistoricalController@pdf')->name('reciboPago');

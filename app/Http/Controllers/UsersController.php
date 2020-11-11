@@ -172,6 +172,7 @@ class UsersController extends Controller
              'fecha_despido'   => $request->fecha_despido,
              'images'          => $images,
              'declaracion'     => $declaracion,
+             'telefono'        => $request->telefono,
 
             ]);
 
@@ -261,6 +262,8 @@ class UsersController extends Controller
                          'images'          => $images,
                          'declaracion'     => $declaracion,
                          'active'          => $request->estado,
+                         'telefono'        => $request->telefono,
+
 
                         ]);
 
@@ -315,6 +318,8 @@ class UsersController extends Controller
                          'fecha_despido'   => $request->fecha_despido,
                          'declaracion'     => $declaracion,
                          'active'          => $request->estado,
+                         'telefono'        => $request->telefono,
+
                          
 
                         ]);
@@ -491,6 +496,8 @@ class UsersController extends Controller
              'fecha_despido'   => $request->fecha_despido,
              'images'          => $images,
              'declaracion'     => $declaracion,
+             'telefono'        => $request->telefono,
+
 
             ]);
 
@@ -575,6 +582,8 @@ class UsersController extends Controller
                              'images'          => $images,
                              'declaracion'     => $declaracion,
                              'active'          => $request->estado,
+                             'telefono'        => $request->telefono,
+
 
                             ]);
 
@@ -619,6 +628,8 @@ class UsersController extends Controller
                              'images'          => $images,
                              'declaracion'     => $declaracion,
                              'active'          => $request->estado,
+                             'telefono'        => $request->telefono,
+
 
                             ]);
 
@@ -670,6 +681,8 @@ class UsersController extends Controller
                              'fecha_despido'   => $request->fecha_despido,
                              'declaracion'     => $declaracion,
                              'active'          => $request->estado,
+                             'telefono'        => $request->telefono,
+
                              
 
                             ]);
@@ -712,6 +725,8 @@ class UsersController extends Controller
                              'fecha_despido'   => $request->fecha_despido,
                              'declaracion'     => $declaracion,
                              'active'          => $request->estado,
+                             'telefono'        => $request->telefono,
+
                              
 
                             ]);

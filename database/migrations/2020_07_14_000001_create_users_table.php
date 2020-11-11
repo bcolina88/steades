@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('departamento')->nullable();
             $table->string('ciudad');
             $table->string('estado');
+            $table->string('telefono');
             $table->string('codigo_postal');
             $table->string('fecha_nacimiento')->nullable();
             $table->string('seguro_social');
